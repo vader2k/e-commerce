@@ -1,28 +1,9 @@
-import { useEffect, useState } from 'react'
 import Card from '../Ui/Card'
-import axios from 'axios'
+import useFetch from '../hooks/useFetch'
 
 const FeaturedProduct = ({type}) => {
 
-
-  const [data, setData] = useState([])
-
-  useEffect(()=> {
-    const fetchData = async () => {
-      try {
-      const res = await axios.get(import.meta.env.VITE_REACT_APP_API_URL+`/products?populate=*&[filters][type][$eq]=${type}`,
-      {
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_REACT_APP_API_TOKEN}`
-        }
-      })
-      setData(res.data.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchData()
-  },[])
+  const {data, loading, error} = useFetch(`/products?populate=*&[filters][type][$eq]=${type}`)
 
   return (
     <div className='w-[70%] mx-auto my-12'>
@@ -32,9 +13,11 @@ const FeaturedProduct = ({type}) => {
       </div>
 
        <div className='flex justify-center gap-[50px]'>
-        {data.map(item => (
-          <Card item={item} key={item.id}/>
-        ))}
+        {loading 
+          ? "loading" :
+            data.map(item => (
+              <Card item={item} key={item.id}/>
+          ))}
        </div>
     </div>
   )
