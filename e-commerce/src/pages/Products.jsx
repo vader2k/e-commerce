@@ -1,6 +1,7 @@
 import { useState} from "react"
 import { useParams } from "react-router-dom"
 import {List} from '../components'
+import useFetch from "../hooks/useFetch"
 
 const Products = () => {
 
@@ -8,41 +9,30 @@ const Products = () => {
 
   const [maxValue, setMaxValue] = useState(1000)
   const [sort, setSort] = useState(null)
+  
+
+  const {data, loading, error} = useFetch(`/sub-Categories?populate=*&[filters][categories][id][$eq]=${catId}`)
+
+  console.log(data)
 
   return (
     <div className="flex justify-between items-start px-20">
       <div className="flex flex-1 flex-col gap-5 sticky top-[50px] h-full">
         <h1 className="text-[1.5rem] font-medium">Product Catgegory</h1>
         <div className="flex flex-col gap-3">
-          <div className="flex gap-2">
-            <input 
-                type="checkbox" 
-                name="" 
-                id="1" 
-                value={1}
-              />
-              <label htmlFor="1">Shoes</label>
+        {data?.map((item) => (
+          <>
+            <div className="flex gap-2">
+              <input 
+                  type="checkbox" 
+                  name="" 
+                  id="1" 
+                  value={1}
+                />
+                <label htmlFor="1">Shoes</label>
             </div>
-
-          <div className="flex gap-2">
-            <input 
-                type="checkbox" 
-                name="" 
-                id="2" 
-                value={2}
-              />
-              <label htmlFor="2">Hats</label>
-          </div>
-
-          <div className="flex gap-2">
-            <input 
-            type="checkbox" 
-              name="" 
-              id="3" 
-              value={3}
-            />
-            <label htmlFor="3">Jackets</label>
-          </div>
+          </>
+        ))}
         </div>
 
         <h1 className="text-[1.5rem] font-medium">Filter by price</h1>
