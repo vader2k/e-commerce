@@ -13,11 +13,14 @@ const FeaturedProduct = ({type}) => {
       </div>
 
        <div className='flex justify-center gap-[50px]'>
-        {loading 
-          ? "loading" :
-            data.map(item => (
+        { error 
+          ? "something went wrong" 
+          : ( loading 
+          ? "loading" 
+          :
+          data.map(item => (
               <Card item={item} key={item.id}/>
-          ))}
+          )))}
        </div>
     </div>
   )

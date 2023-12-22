@@ -41,9 +41,9 @@ import Card from "../Ui/Card"
 
   return (
     <div className="flex py-10 w-full gap-10">
-      {data.map(item => (
+      {/* {data.map(item => (
         <Card item={item} key={item.id}/>
-      ))}
+      ))} */}
     </div>
   )
 }
