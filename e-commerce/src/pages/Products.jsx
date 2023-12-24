@@ -4,19 +4,22 @@ import {List} from '../components'
 import useFetch from "../hooks/useFetch"
 
 const Products = () => {
-
+  // to get the id from the url
   const catId = parseInt(useParams().id)
-
+  // created states to store the maximum price value, sort value and selected sub category
+  // the useState hook is used to create a state variable and a function to update it
   const [maxValue, setMaxValue] = useState(1000)
   const [sort, setSort] = useState("asc")
   const [selectedSubCategory, setSelectedSubCategory] = useState([])
-
+  // used the use fetch hook to fetch the data,loading and error state from the api. this url is used to fetch the sub category data and to set the categories id to the url item id
   const {data, loading, error} = useFetch(`/sub-Categories?populate=*&[filters][categories][id][$eq]=${catId}`)
 
+// created an onChange function to handle the change event of the checkbox. it takes the event as an argument and updates the selected sub category state.
   const handleChange = (e) => {
     const value = e.target.value
     const isChecked = e.target.checked
-    
+    // if the checkbox is checked, the selected sub category state is updated with the value of the checkbox
+    // if the checkbox is unchecked, the selected sub category state is updated with the value of the checkbox
     setSelectedSubCategory(isChecked ? [...selectedSubCategory, value] : selectedSubCategory.filter((item) => item !== value))
   }
 

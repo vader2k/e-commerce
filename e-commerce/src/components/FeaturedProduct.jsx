@@ -2,7 +2,7 @@ import Card from '../Ui/Card'
 import useFetch from '../hooks/useFetch'
 
 const FeaturedProduct = ({type}) => {
-
+  
   const {data, loading, error} = useFetch(`/products?populate=*&[filters][type][$eq]=${type}`)
 
   return (
