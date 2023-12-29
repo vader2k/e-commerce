@@ -1,18 +1,8 @@
 import { IoTrashOutline } from "react-icons/io5";
+import { useSelector } from 'react-redux'
 
 const Cart = () => {
-  const data = [
-    {
-      id: 1,
-      img: "https://images.unsplash.com/photo-1638916632822-893c73d6bead?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      name: "Long Sleeves Graphic T-shirt",
-      des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio deleniti illum dolor sint asperiores? Debitis distinctio facere eligendi rerum corporis!",
-      quant: 1,
-      price: "$19.9",
-    },
-    // Add more items as needed
-  ];
-
+  const products = useSelector(state=>state.cart.products)
   return (
     <div className="absolute flex flex-col p-5 gap-3 w-[400px] overflow-hidden right-[20px] top-[80px] z-[40] bg-white">
       <h2 className="text-[1.3rem] text-gray-500">Products in your Cart</h2>
