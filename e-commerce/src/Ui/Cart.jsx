@@ -1,10 +1,14 @@
 import { IoTrashOutline } from "react-icons/io5";
 import { useSelector } from 'react-redux'
+import { removeItem, resetCart } from "../redux/cartReducer";
+import { useDispatch } from "react-redux";
 
 const Cart = () => {
   const products = useSelector(state=>state.cart.products)
 
-  const total = () => {
+  const dispatch = useDispatch()
+
+  const totalPrice = () => {
     let total = 0;
 
     products.forEach((items) => (total += items.quantity * items.price))
@@ -25,17 +29,17 @@ const Cart = () => {
                 <div className="flex gap-3">{items.quantity} x <span className="text-blue-500">{items.price}</span></div>
              </div>
             < div>
-                <IoTrashOutline className="text-red-600 text-[1.5rem] cursor-pointer"/>
+                <IoTrashOutline className="text-red-600 text-[1.5rem] cursor-pointer" onClick={()=>dispatch(removeItem(items.id))}/>
               </div>
             </div>
           ))
         }
       <div className="flex justify-between font-semibold">
         <span>SUBTOTAL</span>
-        <span>$123</span>
+        <span>${totalPrice()}</span>
       </div>
       <button className="items-start w-[250px] px-4 py-2 text-white bg-blue-500">PROCEED TO CHECKOUT</button>
-      <span className="text-[0.8rem] text-red-500 cursor-pointer">reset cart</span>
+      <span className="text-[0.8rem] text-red-500 cursor-pointer" onClick={()=>dispatch(resetCart())}>reset cart</span>
     </div>
   )
 }
