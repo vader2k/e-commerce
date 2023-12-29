@@ -6,10 +6,12 @@ import { IoPersonOutline , IoHeartOutline } from "react-icons/io5";
 import { GiShoppingCart } from "react-icons/gi";
 import { Link } from "react-router-dom"
 import Cart from '../Ui/Cart'
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
 
   const [open, setOpen] = useState(false)
+  const products = useSelector(state=>state.cart.products)
 
   return (
     <div className='flex items-center justify-between py-5 px-10 relative'>
@@ -42,7 +44,7 @@ const Navbar = () => {
         <IoHeartOutline className='text-[1.2rem] text-gray-400 cursor-pointer'/>
         <div className='relative cursor-pointer'>
           <GiShoppingCart className='text-[1.2rem] text-gray-400' onClick={()=>setOpen(!open)}/>
-          <div className='absolute bg-blue-500 h-[20px] w-[20px] flex items-center justify-center text-white text-[0.9rem] rounded-[50%] top-[-15px] right-[-10px]'>0</div>
+          <div className='absolute bg-blue-500 h-[20px] w-[20px] flex items-center justify-center text-white text-[0.9rem] rounded-[50%] top-[-15px] right-[-10px]'>{products.length}</div>
         </div>
       </div>
       {open && <Cart/>}
