@@ -4,6 +4,8 @@ import { LuHeart } from "react-icons/lu";
 import { LuScale } from "react-icons/lu";
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/cartReducer";
 
 const ProductDetail = () => {
   const id = useParams().id
@@ -14,7 +16,9 @@ const ProductDetail = () => {
 
  const handlePictureClick = (pictureType) => {
   setPicture(pictureType);
-};
+  };
+
+  const dispatch = useDispatch()
 
   return (
     <div className="flex items-start justify-center mb-20 px-20 gap-10">
@@ -61,7 +65,14 @@ const ProductDetail = () => {
                   <span className="text-[1.1rem]">{quantity}</span>
                   <button className="flex items-center justify-center w-10 h-10 bg-gray-300 text-black" onClick={()=> setQuantity(quantity + 1)}>+</button>
                 </div>
-                <button className="w-fit min-w-[150px] py-2 px-6 bg-blue-500 text-white flex gap-3 items-center justify-center">
+                <button className="w-fit min-w-[150px] py-2 px-6 bg-blue-500 text-white flex gap-3 items-center justify-center" onClick={()=>dispatch(addToCart({
+                  id:data.id,
+                  title:data.attributes.title,
+                  desc:data.attributes.desc,
+                  price:data.attributes.price,
+                  img:data.attributes.img.data.attributes.url,
+                  quantity
+                }))}>
                   <HiOutlineShoppingCart className="text-[1.5rem]"/> <p className="text-[0.8rem]">ADD TO CART</p>
                 </button>
                 <div className="flex items-center gap-5 text-blue-500 text-[0.8rem]">
