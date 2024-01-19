@@ -14,7 +14,9 @@ import useFetch from "../hooks/useFetch"
 
   return (
     <div className="flex py-10 w-full gap-10">
-      {loading 
+      {error 
+        ? "error" 
+        : loading 
         ? "loading" 
         : data.map(item => (
         <Card item={item} key={item.id}/>
